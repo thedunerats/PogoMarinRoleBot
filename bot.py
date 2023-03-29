@@ -1,3 +1,4 @@
+import base64
 import discord
 import json
 import logging
@@ -119,7 +120,8 @@ def fix_indent(rating):
         return ' ' * 2
 
 
-f = open('key.txt', 'r')
-the_thing = f.readline()
+f = open('the_file.txt', 'rb')
+thing = f.readline()
+other_thing = base64.b64decode(thing, altchars=None, validate=False).decode()
 f.close()
-client.run(the_thing)
+client.run(other_thing)
