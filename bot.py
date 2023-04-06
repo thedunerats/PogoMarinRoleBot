@@ -29,13 +29,13 @@ async def on_ready():
 @client.event
 async def on_message(message):
     # role request
-    if message.channel.id == 330243328731774977:
+    if message.channel.id in [330243328731774977, 1087165689313378324, 920459479567458304]:
         valid_roles = ['mystic', 'valor', 'instinct', 'san rafael', 'ross valley', 'non marin',
                        'novato', 'south novato', 'southern marin', 'marinwood-tl', 'central marin', 'ex raids',
                        'lvl50', 'lvl49', 'lvl48', 'lvl47', 'lvl46', 'lvl45', 'lvl44', 'lvl43', 'lvl42', 'lvl41',
                        'lvl40', 'lvl39', 'lvl38', 'lvl37', 'lvl36', 'lvl35', 'lvl34', 'lvl33', 'lvl32', 'lvl31',
                        'lvl30', 'lvl29', 'lvl28', 'lvl27', 'lvl26', 'lvl25', 'lvl24', 'lvl23', 'lvl22',
-                       'ttar', 'ditto', 'machamp']
+                       'ttar', 'ditto', 'machamp', 'kecleon']
         if message.content.startswith('!r '):
             split_message = message.content[3:].split(', ')
             requested_roles = []
