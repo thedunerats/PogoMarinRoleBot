@@ -27,6 +27,12 @@ async def on_ready():
 
 
 @client.event
+async def on_presence_update(before, after):
+    if before.id in [215316565468512256]:
+        print(before.name + 'changed status to '+after.status+'. It works!')
+
+
+@client.event
 async def on_message(message):
     # role request
     if message.channel.id in [330243328731774977, 1087165689313378324, 920459479567458304]:
