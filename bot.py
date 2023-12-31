@@ -9,6 +9,7 @@ from difflib import get_close_matches
 intents = discord.Intents.default()
 intents.messages = True
 intents.message_content = True
+intents.members = True
 client = discord.Client(intents=intents)
 
 
