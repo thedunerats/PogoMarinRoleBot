@@ -30,8 +30,8 @@ async def on_ready():
 
 @client.event
 async def on_presence_update(before, after):
-    if before.id in [215316565468512256]:
-        print(before.name + 'changed status to '+after.status+'. It works!')
+    if before.id in [215316565468512256, 414716521504571393]:
+        print(str(before.name) + 'changed status to '+str(after.status)+'.')
 
 
 @client.event
