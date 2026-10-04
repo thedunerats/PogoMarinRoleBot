@@ -1,6 +1,7 @@
 import base64
 import discord
 import logging
+import re
 
 # ── Configuration ────────────────────────────────────────────────────────────
 
@@ -60,6 +61,8 @@ def normalize_role_name(key):
         return 'TTAR'
     if key == 'under level 50':
         return 'Under level 50'
+    if re.match(r'^lvl\d+$', key):
+        return key  # Discord role names are exactly 'lvl50', 'lvl71', etc.
     return key.title()
 
 
