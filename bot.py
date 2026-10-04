@@ -25,7 +25,8 @@ VALID_ROLES = {
     'ex raids',
     'ttar', 'ditto', 'machamp', 'kecleon', 'chansey', 'axew',
     'deino', 'unown', 'lapras', 'legendary', 'gigantamax', 'com', 'mega',
-    *[f'lvl{n}' for n in range(22, 51)],
+    'under level 50',
+    *[f'lvl{n}' for n in range(50, 81)],
 }
 
 # Uncomment to enable debug logging:
@@ -57,27 +58,39 @@ def normalize_role_name(key):
         return 'EX Raids'
     if key == 'ttar':
         return 'TTAR'
+    if key == 'under level 50':
+        return 'Under level 50'
     return key.title()
+
+
+def _extract_level_number(token):
+    """Returns the integer level from inputs like '40', 'lvl40', 'lvl 40', 'level40', 'level 40', or None."""
+    if is_number(token):
+        return int(token)
+    for prefix in ('level', 'lvl'):
+        if token.startswith(prefix):
+            rest = token[len(prefix):].strip()
+            if is_number(rest):
+                return int(rest)
+    return None
 
 
 def parse_role_key(token):
     """
     Normalises a single user-input token to a key in VALID_ROLES.
+    Level inputs below 50 map to 'under level 50'.
     Returns None if the token does not match any known role.
     """
     token = token.strip().lower()
-    if is_number(token):
-        candidate = f'lvl{token}'
+
+    level = _extract_level_number(token)
+    if level is not None:
+        if level < 50:
+            return 'under level 50'
+        candidate = f'lvl{level}'
         return candidate if candidate in VALID_ROLES else None
-    if token in VALID_ROLES:
-        return token
-    if 'level' in token:
-        candidate = 'lvl' + token.strip('level ')
-        return candidate if candidate in VALID_ROLES else None
-    if 'lvl ' in token:
-        candidate = 'lvl' + token.strip('lvl ')
-        return candidate if candidate in VALID_ROLES else None
-    return None
+
+    return token if token in VALID_ROLES else None
 
 
 def resolve_roles(content, guild):
